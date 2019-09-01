@@ -1,8 +1,11 @@
 body {
   background-color: rgb(204,255,241);
+  margin: 20px;
+}
+
+.gameinfo {
   font-size: 50px;
   font-family: 'Lobster', cursive;
-  margin: 20px;
 }
   
 ol, ul {
