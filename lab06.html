@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <title>My memory game</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css?family=Lobster&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+  </head>  
+
+  <body>
+    <div id="root"></div>
+    <script type="text/babel">
+
+        class Square extends React.Component {
+        render() {
+            return (
+            <button className="square">
+                {this.props.value}
+            </button>
+            );
+        }
+        }
+
+        class Board extends React.Component {
+        renderSquare(i) {
+            return <Square value={i} />;
+        }
+
+        render() {
+            const status = 'Attempts: 0';
+
+            return (
+            <div>
+                <div className="status">{status}</div>
+                <div className="board-row">
+                {this.renderSquare(0)}
+                {this.renderSquare(1)}
+                {this.renderSquare(2)}
+                {this.renderSquare(3)}
+                {this.renderSquare(4)}
+                {this.renderSquare(5)}
+                {this.renderSquare(6)}
+                </div>
+                <div className="board-row">
+                {this.renderSquare(7)}
+                {this.renderSquare(8)}
+                {this.renderSquare(9)}
+                {this.renderSquare(10)}
+                {this.renderSquare(11)}
+                {this.renderSquare(12)}
+                {this.renderSquare(13)}
+                </div>
+                <div className="board-row">
+                {this.renderSquare(14)}
+                {this.renderSquare(15)}
+                {this.renderSquare(16)}
+                {this.renderSquare(17)}
+                {this.renderSquare(18)}
+                {this.renderSquare(19)}
+                {this.renderSquare(20)}
+                </div>
+            </div>
+            );
+        }
+        }
+
+        class Game extends React.Component {
+        render() {
+            return (
+            <div className="game">
+                <div className="game-board">
+                <Board />
+                </div>
+                <div className="game-info">
+                <div>{/* status */}</div>
+                <ol>{/* TODO */}</ol>
+                </div>
+            </div>
+            );
+        }
+        }
+
+        // ========================================
+
+        ReactDOM.render(
+        <Game />,
+        document.getElementById('root')
+        );
+    </script>
+  </body>
+</html>
