@@ -1,10 +1,11 @@
 body {
-  background-color: rgb(204,255,241);
+  background-color: rgb(71,62,63);
   margin: 20px;
 }
 
 .gameinfo {
   font-size: 40px;
+  color: white;
   font-family: 'Lobster', cursive;
 }
 
@@ -22,10 +23,9 @@ body {
 }
 
 .card {
-  background: orange;
-  border: 3px solid #999;
-  height: 125px;
-  width: 125px;
+  background: rgb(144, 220, 158);
+  height: 130px;
+  width: 130px;
   margin-left: 15px;
   margin-top: 15px;
 }
