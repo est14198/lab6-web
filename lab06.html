@@ -15,23 +15,6 @@
     <div id="root"></div>
     <script type="text/babel">
 
-        const totalCards = 36;
-
-        const shufflingCards = () => {
-            const icons = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 11, 12, 13, 14, 1, 8, 15, 9, 5, 6, 10, 16, 7, 17, 18, 16, 3, 15, 14, 2, 12, 4, 13, 18, 17];
-            let cards = [];
-            while (cards.length < icons.length) {
-                const card = {
-                    valueicon: icons.splice (1, 1),
-                    wasPaired: false
-                };
-                cards.push(card);
-                cards.push({...card});
-            }
-            
-            return cards;
-        };
-
         class GameInfo extends React.Component {
                 render() {
                     return (
@@ -44,19 +27,42 @@
 
             class Board extends React.Component {
                 renderSquare(i) {
+                    
                     return (
-                    <Square
-                        value={this.props.squares[i]}
-                        onClick={() => this.props.onClick(i)}
-                    />
+                        <Card value={this.props.squares[i]} icon={this.props.icons[i]}/>
                     );
                 }
                 render() {
                     return (
-                        <div className="board">
-                        {
-                            this.props.deck.map((card) => <Card icon={card.valueicon}/>)
-                        }
+                        <div>
+                            <div className="board">
+                                {this.renderSquare(0)}
+                                {this.renderSquare(1)}
+                                {this.renderSquare(2)}
+                                {this.renderSquare(3)}
+                                {this.renderSquare(4)}
+                                {this.renderSquare(5)}
+                                {this.renderSquare(6)}
+                                {this.renderSquare(7)}
+                                {this.renderSquare(8)}
+                                {this.renderSquare(9)}
+                                {this.renderSquare(10)}
+                                {this.renderSquare(11)}
+                                {this.renderSquare(12)}
+                                {this.renderSquare(13)}
+                                {this.renderSquare(14)}
+                                {this.renderSquare(15)}
+                                {this.renderSquare(16)}
+                                {this.renderSquare(17)}
+                                {this.renderSquare(18)}
+                                {this.renderSquare(19)}
+                                {this.renderSquare(20)}
+                                {this.renderSquare(21)}
+                                {this.renderSquare(22)}
+                                {this.renderSquare(23)}
+                                {this.renderSquare(24)}
+                                {this.renderSquare(25)}
+                            </div>
                         </div>
                     );
                 }
@@ -64,35 +70,33 @@
 
             class Card extends React.Component {
                 render() {
+                    const cardStyle = {
+                        marginTop: '20px',
+                        marginLeft: '25px' 
+                    };
                     return(
                         <div className="card">
-                            <i className={'fa ${this.props.icon} fa-5x'}></i>
+                            <i className={'fa ' + this.props.icon + ' fa-5x'} style={cardStyle}></i>
                         </div>
                     );
                 }
             }
 
-            const getInitialState = () => {
-                const deck = shufflingCards();
-                return {
-                    deck
-                }
-            };
-
 
             class Game extends React.Component {
                 constructor(props) {
                     super(props);
-                    this.state = getInitialState();
+                    this.state = {
+                        icons: ['fa-heart', 'fa-car', 'fa-file', 'fa-bars', 'fa-cloud', 'fa-snowflake-o', 'fa-eye', 'fa-music', 'fa-moon-o', 'fa-paw', 'fa-tree', 'fa-tree', 'fa-hand-peace-o', 'fa-rocket', 'fa-heart', 'fa-music', 'fa-moon-o', 'fa-cloud', 'fa-snowflake-o ', 'fa-paw', 'fa-eye', 'fa-file', 'fa-car', 'fa-hand-peace-o', 'fa-bars', 'fa-rocket'],
+                        squares: Array(27).fill(null)
+                    };
                 }
-
-
                 render() {
                     return (
                     <div className="game">
                         <div className="game-board">
                         <GameInfo />
-                        <Board deck={this.state.deck}/>
+                        <Board squares={this.state.squares} icons={this.state.icons}/>
                         </div>
                     </div>
                     );
