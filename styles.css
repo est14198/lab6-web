@@ -22,7 +22,15 @@ body {
   justify-content: space-around;
 }
 
-.card {
+.card-back {
+  background: rgb(239, 113, 37);
+  height: 130px;
+  width: 130px;
+  margin-left: 15px;
+  margin-top: 15px;
+}
+
+.card-front {
   background: rgb(144, 220, 158);
   height: 130px;
   width: 130px;
@@ -32,16 +40,6 @@ body {
 
 
 
-  
-ol, ul {
-  padding-left: 30px;
-}
-
-.board-row:after {
-  clear: both;
-  content: "";
-  display: table;
-}
 
 .status {
   margin-bottom: 10px;
