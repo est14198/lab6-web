@@ -30,7 +30,7 @@
             class Board extends React.Component {
                 renderSquare(i) {
                     return (
-                        <Card value={this.props.squares[i]} icon={this.props.icons[i]} onClick={() => this.props.onClick(i)}/>
+                        <Card cln={this.props.cn[i]} icon={this.props.icons[i]} onClick={() => this.props.onClick(i)}/>
                     );
                 }
                 render() {
@@ -70,16 +70,32 @@
             }
 
             class Card extends React.Component {
+                constructor(props) {
+                    super(props);
+                    this.state = {
+                        classnam: 'card-front'
+                    };
+                }
+
                 render() {
+                    let ic = ''
+
+                    if (this.props.cln === 1) {
+                        this.state.classnam = 'card-back'
+                        ic = 'fa ' + this.props.icon + ' fa-5x'
+                    }
+                    else{
+                        ic = ''
+                    }
+
                     const cardStyle = {
                         marginTop: '20px',
                         marginLeft: '25px' 
                     };
 
                     return(
-                        <div className={"card-front"} onClick={this.props.onClick}>
-                            <i className={'fa ' + this.props.icon + ' fa-5x'} style={cardStyle}></i>
-                            {this.props.value}
+                        <div className={this.state.classnam} onClick={this.props.onClick}>
+                            <i className={ic} style={cardStyle}></i>
                         </div>
                     );
                 }
@@ -91,12 +107,17 @@
                     super(props);
                     this.state = {
                         icons: ['fa-heart', 'fa-car', 'fa-file', 'fa-bars', 'fa-cloud', 'fa-snowflake-o', 'fa-eye', 'fa-music', 'fa-moon-o', 'fa-paw', 'fa-tree', 'fa-tree', 'fa-hand-peace-o', 'fa-rocket', 'fa-heart', 'fa-music', 'fa-moon-o', 'fa-cloud', 'fa-snowflake-o ', 'fa-paw', 'fa-eye', 'fa-file', 'fa-car', 'fa-hand-peace-o', 'fa-bars', 'fa-rocket'],
-                        squares: Array(27).fill(false)
+                        classnam: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
                     };
                 }
 
+
                 handleClick(i) {
-                    this.state.squares[i] = true;
+                    const duplicatedArray = this.state.classnam;
+                    duplicatedArray[i] = 1;
+                    this.setState({
+                        classnam: duplicatedArray
+                    })
                 }
 
                 render() {
@@ -104,7 +125,7 @@
                     <div className="game">
                         <div className="game-board">
                         <GameInfo />
-                        <Board squares={this.state.squares} icons={this.state.icons} onClick={i => this.handleClick(i)} />
+                        <Board cn={this.state.classnam} icons={this.state.icons} onClick={i => this.handleClick(i)} />
                         </div>
                     </div>
                     );
