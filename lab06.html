@@ -79,13 +79,16 @@
 
                 render() {
                     let ic = ''
+                    let an = ''
 
                     if (this.props.cln === 1) {
                         this.state.classnam = 'card-back'
                         ic = 'fa ' + this.props.icon + ' fa-5x'
+                        an = 'animated flipInY'
                     }
                     else{
                         ic = ''
+                        an = ''
                     }
 
                     const cardStyle = {
@@ -94,8 +97,10 @@
                     };
 
                     return(
-                        <div className={this.state.classnam} onClick={this.props.onClick}>
-                            <i className={ic} style={cardStyle}></i>
+                        <div className={an}>
+                            <div className={this.state.classnam} onClick={this.props.onClick}>
+                                <i className={ic} style={cardStyle}></i>
+                            </div>
                         </div>
                     );
                 }

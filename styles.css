@@ -1,5 +1,5 @@
 body {
-  background-color: rgb(71,62,63);
+  background-color: rgb(200, 191, 231);
   margin: 20px;
 }
 
@@ -23,7 +23,7 @@ body {
 }
 
 .card-back {
-  background: rgb(239, 113, 37);
+  background-color: rgb(255, 111, 105);
   height: 130px;
   width: 130px;
   margin-left: 15px;
@@ -31,7 +31,7 @@ body {
 }
 
 .card-front {
-  background: rgb(144, 220, 158);
+  background: url(bgnd1.png);
   height: 130px;
   width: 130px;
   margin-left: 15px;
