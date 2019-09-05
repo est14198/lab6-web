@@ -9,9 +9,6 @@ body {
   font-family: 'Lobster', cursive;
 }
 
-.div:focus {
-  outline: none;
-}
 
 .board {
   display: flex;
@@ -39,29 +36,7 @@ body {
   margin-top: 15px;
 }
 
-
-
-
-.status {
-  margin-bottom: 10px;
-  margin-left: 40%;
-}
-
-
-
-.square:focus {
-  outline: none;
-}
-
-.kbd-navigation .square:focus {
-  background: #ddd;
-}
-
 .game {
   display: flex;
   flex-direction: row;
-}
-
-.game-info {
-  margin-left: 20px;
 }

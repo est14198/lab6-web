@@ -10,7 +10,6 @@
     <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/react-card-flip/0.8.1/react-card-flip.js" integrity="sha256-AYCPxTUS6xnPi4BwlAEh9rThjhs3Fz9noUuh/aczl0U=" crossorigin="anonymous"></script>
   </head>  
 
   <body>
@@ -21,7 +20,7 @@
                 render() {
                     return (
                         <header className="animated slideInLeft">
-                            <div className="gameinfo">Attempts: </div>
+                            <div className="gameinfo">Attempts: {this.props.att}</div>
                         </header>
                     );
                 }
@@ -87,6 +86,7 @@
                         an = 'animated flipInY'
                     }
                     else{
+                        this.state.classnam = 'card-front'
                         ic = ''
                         an = ''
                     }
@@ -106,30 +106,94 @@
                 }
             }
 
+
             class Game extends React.Component {
                 
                 constructor(props) {
                     super(props);
                     this.state = {
-                        icons: ['fa-heart', 'fa-car', 'fa-file', 'fa-bars', 'fa-cloud', 'fa-snowflake-o', 'fa-eye', 'fa-music', 'fa-moon-o', 'fa-paw', 'fa-tree', 'fa-tree', 'fa-hand-peace-o', 'fa-rocket', 'fa-heart', 'fa-music', 'fa-moon-o', 'fa-cloud', 'fa-snowflake-o ', 'fa-paw', 'fa-eye', 'fa-file', 'fa-car', 'fa-hand-peace-o', 'fa-bars', 'fa-rocket'],
-                        classnam: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+                        icons: ['fa-heart', 'fa-car', 'fa-file', 'fa-bars', 'fa-cloud', 'fa-snowflake-o', 'fa-eye', 'fa-music', 'fa-moon-o', 'fa-paw', 'fa-tree', 'fa-tree', 'fa-hand-peace-o', 'fa-rocket', 'fa-heart', 'fa-music', 'fa-moon-o', 'fa-cloud', 'fa-snowflake-o', 'fa-paw', 'fa-eye', 'fa-file', 'fa-car', 'fa-hand-peace-o', 'fa-bars', 'fa-rocket'],
+                        classnam: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        wasGuessed: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+                        selectedPair: [],
+                        selectedPairPos: [],
+                        isComparing: false,
+                        attempts: 0
                     };
                 }
 
-
                 handleClick(i) {
-                    const duplicatedArray = this.state.classnam;
-                    duplicatedArray[i] = 1;
+                    if (this.state.isComparing || this.state.wasGuessed[i] === 1)
+                    {
+                        return;
+                    }
+                    const duplicatedArraySelectedpair = this.state.selectedPair;
+                    const duplicatedArraySelectedpairpos = this.state.selectedPairPos;
+                    const duplicatedArrayClassnam = this.state.classnam;
+                    duplicatedArraySelectedpair.push(this.state.icons[i]);
+                    duplicatedArraySelectedpairpos.push(i);
+                    duplicatedArrayClassnam[i] = 1;
                     this.setState({
-                        classnam: duplicatedArray
-                    })
+                        classnam: duplicatedArrayClassnam,
+                        selectedPair: duplicatedArraySelectedpair,
+                        selectedPairPos: duplicatedArraySelectedpairpos
+                    });
+                    if (this.state.selectedPair.length === 2) {
+                        this.comparePair(this.state.selectedPair, this.state.selectedPairPos);
+                    }
+                }
+
+                comparePair(pairarray, pairarraypos) {
+                    this.setState({isComparing: true});
+                    setTimeout(() => {
+                        const firstCard = pairarray[0];
+                        const secondCard = pairarray[1];
+                        const newA = this.state.wasGuessed;
+                        const newB = this.state.classnam;
+                        if (firstCard === secondCard) {
+                            newA[pairarraypos[0]] = 1;
+                            newA[pairarraypos[1]] = 1;
+                            newB[pairarraypos[0]] = 1;
+                            newB[pairarraypos[1]] = 1;
+                            this.setState({
+                                classnam: newB,
+                                wasGuessed: newA,
+                                selectedPair: [],
+                                selectedPairPos: [],
+                                isComparing: false
+                            })
+                        }
+                        else {
+                            newB[pairarraypos[0]] = 0;
+                            newB[pairarraypos[1]] = 0;
+                            this.setState({
+                                classnam: newB,
+                                selectedPair: [],
+                                selectedPairPos: [],
+                                isComparing: false
+                            })
+                        };
+                        this.checkIfWin(this.state.wasGuessed);
+                        this.setState({
+                            selectedPair: [],
+                            selectedPairPos: [],
+                            isComparing: false,
+                            attempts: this.state.attempts + 1
+                        });
+                    }, 1000);
+                }
+
+                checkIfWin(arrayw) {
+                    if (JSON.stringify(arrayw) === JSON.stringify([1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1])) {
+                        alert("YOU WON WITH " + this.state.attempts + " ATTEMPTS!!! >:)")
+                    }
                 }
 
                 render() {
                     return (
                     <div className="game">
                         <div className="game-board">
-                        <GameInfo />
+                        <GameInfo att={this.state.attempts}/>
                         <Board cn={this.state.classnam} icons={this.state.icons} onClick={i => this.handleClick(i)} />
                         </div>
                     </div>
