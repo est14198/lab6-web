@@ -9,7 +9,6 @@ body {
   font-family: 'Lobster', cursive;
 }
 
-
 .board {
   display: flex;
   flex-wrap: wrap;
